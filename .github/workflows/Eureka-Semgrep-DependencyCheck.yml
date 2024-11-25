@@ -1,4 +1,4 @@
-name: DVWA with Eureka with Semgrep SAST
+name: WebGoat with Eureka Semgrep DependencyCheck
 
 on:
   workflow_dispatch:
