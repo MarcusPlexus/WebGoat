@@ -14,8 +14,8 @@ jobs:
 
       - name: Pull and Run Eureka
         run: |
-          #docker login -u ${{ secrets.EUREKA_USER }} -p ${{ secrets.EUREKA_PASSWORD }} ${{ vars.EUREKA_REGISTRY_URL }}
-          echo "${{ secrets.EUREKA_PASSWORD }}" | docker login --username ${{ secrets.EUREKA_USER }} --password-stdin ${{ vars.EUREKA_REGISTRY_URL }}
+          docker login -u ${{ secrets.EUREKA_USER }} -p ${{ secrets.EUREKA_PASSWORD }} ${{ vars.EUREKA_REGISTRY_URL }}
+          #echo "${{ secrets.EUREKA_PASSWORD }}" | docker login --username ${{ secrets.EUREKA_USER }} --password-stdin ${{ vars.EUREKA_REGISTRY_URL }}
           docker pull ${{ vars.EUREKA_REGISTRY_URL }}/${{ vars.EUREKA_REPO }}:${{ vars.EUREKA_TAG }}
           docker run --rm --network host \
           -v /var/run/docker.sock:/var/run/docker.sock \
