@@ -2,9 +2,7 @@ name: Eureka - Bandit Scanning
 
 # Controls when the action will run.
 on:
-  push:
-    branches:
-        - '*'
+  workflow_dispatch:
 
 jobs:
   eureka-scan:
