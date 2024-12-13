@@ -18,8 +18,8 @@ jobs:
       - name: Pull Eureka
         run: |
           echo "${{ secrets.EUREKA_PASSWORD }}" | docker login --username ${{ secrets.EUREKA_USER }} --password-stdin ${{ vars.EUREKA_REGISTRY_URL }}
-          docker login -u 741f155b-8ab5-4078-876b-8d86a6be7565 -p Xov8Q~z49eIyv-XXzbcBCF72bOlSJ3blfsh-pcCh ${{ vars.EUREKA_REGISTRY_URL }}
-          #docker login -u ${{ secrets.EUREKA_USER }} -p ${{ secrets.EUREKA_PASSWORD }} ${{ vars.EUREKA_REGISTRY_URL }}
+          #docker login -u 741f155b-8ab5-4078-876b-8d86a6be7565 -p Xov8Q~z49eIyv-XXzbcBCF72bOlSJ3blfsh-pcCh ${{ vars.EUREKA_REGISTRY_URL }}
+          docker login -u ${{ secrets.EUREKA_USER }} -p ${{ secrets.EUREKA_PASSWORD }} ${{ vars.EUREKA_REGISTRY_URL }}
           exit 1
           docker pull ${{ vars.EUREKA_REGISTRY_URL }}/${{ vars.EUREKA_REPO }}:${{ vars.EUREKA_TAG }}
           echo "Eureka image pull completed"
@@ -30,7 +30,7 @@ jobs:
           -e EUREKA_ENDPOINT="${{ secrets.EUREKA_ENDPOINT }}" \
           -e EUREKA_USER="${{ secrets.EUREKA_USER }}" \
           -e EUREKA_PASSWORD="${{ secrets.EUREKA_PASSWORD }}" \
-          -e PROFILE_INFO="${{ vars.PROFILE_INFO_WEBGOAT_SEMGREP_DEPCHECK }}" \
+          -e PROFILE_INFO="${{ vars.PROFILE_INFO_79CCA }}" \
           ${{ vars.EUREKA_REGISTRY_URL }}/${{ vars.EUREKA_REPO }}:${{ vars.EUREKA_TAG }}
           
       # - name: Stop if previous step failed
