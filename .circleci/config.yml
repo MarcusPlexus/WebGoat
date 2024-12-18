@@ -1,1 +1,46 @@
-# first test
+# systemID=891a8691-f1f9-44b7-9ac4-bddc606f2ad9;componentID=891a8691-f1f9-44b7-9ac4-bddc606f2ad9;profileID=891a8691-f1f9-44b7-9ac4-bddc606f2ad9
+version: 2.1
+
+workflows:
+    version: 2
+    eureka_scan_workflow:
+        jobs:
+        - eureka_scan
+
+#Definition of the job within the workflow
+jobs:
+    eureka_scan:
+        docker:
+        - image: cimg/python:3.12.0 # or any other base image suitable for your project
+        steps:
+        - checkout
+        # Set up docker on the Circle CI environment
+        - setup_remote_docker:
+            version: 20.10.14
+        # Login to docker to retrieve the agent                                
+        - run:
+            name: Login to Docker Hub with PAT
+            command: |
+                docker login -u $EUREKA_USER -p $EUREKA_PASSWORD $EUREKA_REGISTRY_URL
+        # Pulling down the docker agent from Docker Hub
+        - run:
+            name: Pull down Eureka
+            command: |
+                docker pull $EUREKA_REGISTRY_URL/$EUREKA_REPO:$EUREKA_TAG
+        # Allowing agent to have enough permissions to run the scan
+        - run:
+            name: Change Folder Permissions
+            command: chmod o+rwx .
+        # Running Eureka against the code cloned into the CircleCI build agent
+        - run:
+            name: Run Eureka
+            command: |
+                docker run --rm --network host \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                -v "$(pwd)":/home/repo \
+                -e EUREKA_USER=$EUREKA_USER \ 
+                -e EUREKA_PASSWORD=$EUREKA_PASSWORD \ 
+                -e DIND_USER_HOME="$(pwd)" \
+                -e EUREKA_ENDPOINT=$EUREKA_ENDPOINT \ 
+                -e PROFILE_INFO=$PROFILE_INFO
+                $EUREKA_REGISTRY_URL/$EUREKA_REPO:$EUREKA_TAG
