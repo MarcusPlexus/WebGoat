@@ -31,6 +31,10 @@ jobs:
         - run:
             name: Change Folder Permissions
             command: chmod o+rwx .
+        # Print them values hey!
+        - run:
+          name: Print Environment Variable
+          command: echo "The value of EUREKA_USER is: $EUREKA_USER"
         # Running Eureka against the code cloned into the CircleCI build agent
         - run:
             name: Run Eureka
