@@ -16,7 +16,7 @@ jobs:
         - checkout
         # Set up docker on the Circle CI environment
         - setup_remote_docker:
-            version: 20.10.14
+            version: default
         # Login to docker to retrieve the agent                                
         - run:
             name: Login to Docker Hub with PAT
