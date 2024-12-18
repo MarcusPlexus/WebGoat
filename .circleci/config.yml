@@ -38,9 +38,9 @@ jobs:
                 docker run --rm --network host \
                 -v /var/run/docker.sock:/var/run/docker.sock \
                 -v "$(pwd)":/home/repo \
-                -e EUREKA_USER=$EUREKA_USER \ 
-                -e EUREKA_PASSWORD=$EUREKA_PASSWORD \ 
+                -e EUREKA_USER="$EUREKA_USER" \ 
+                -e EUREKA_PASSWORD="$EUREKA_PASSWORD" \ 
                 -e DIND_USER_HOME="$(pwd)" \
-                -e EUREKA_ENDPOINT=$EUREKA_ENDPOINT \ 
-                -e PROFILE_INFO=$PROFILE_INFO
+                -e EUREKA_ENDPOINT="$EUREKA_ENDPOINT" \ 
+                -e PROFILE_INFO="$PROFILE_INFO"
                 $EUREKA_REGISTRY_URL/$EUREKA_REPO:$EUREKA_TAG
