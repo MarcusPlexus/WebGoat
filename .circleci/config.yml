@@ -46,5 +46,5 @@ jobs:
                 -e EUREKA_PASSWORD=$EUREKA_PASSWORD \ 
                 -e DIND_USER_HOME="$(pwd)" \
                 -e EUREKA_ENDPOINT=$EUREKA_ENDPOINT \ 
-                -e PROFILE_INFO=$PROFILE_INFO \
-                $EUREKA_REGISTRY_URL/$EUREKA_REPO:$EUREKA_TAG
+                -e PROFILE_INFO=$PROFILE_INFO eurekahubprodagentacr.azurecr.io/fwdsec/eureka:latest
+    
